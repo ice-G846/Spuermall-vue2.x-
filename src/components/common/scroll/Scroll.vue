@@ -1,0 +1,64 @@
+<template>
+<div ref="wrapper">
+  <div class="content">
+    <slot></slot>
+  </div>
+</div>
+</template>
+
+<script>
+import BScroll from 'better-scroll'
+
+export default {
+  name: 'Scroll',
+  props: {
+    probeType: {
+      type: Number,
+      default: 0
+    },
+    pullUpLoad: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      scroll: null,
+    }
+  },
+  mounted() {
+    this.scroll = new BScroll(this.$refs.wrapper, {
+      probeType: this.probeType,
+      observeDOM: true,
+      click: true,
+      pullUpLoad: this.pullUpLoad
+    })
+    if(this.probeType === 2 || this.probeType === 3){
+      this.scroll.on('scroll', position => {
+      this.$emit('scroll', position)
+    })
+    }
+    if(this.pullUpLoad){
+      this.scroll.on('pullingUp', () => {
+      this.$emit('pullingUp')
+    })
+    }
+  },
+  methods: {
+    scrollTo(x, y, time = 800) {
+      this.scroll && this.scroll.scrollTo(0, 0, time)
+    },
+    finishPullUp() {
+      this.scroll && this.scroll.finishPullUp()
+      //this.scroll.refresh()
+    },
+    refresh() {
+      this.scroll && this.scroll.refresh()
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+</style>

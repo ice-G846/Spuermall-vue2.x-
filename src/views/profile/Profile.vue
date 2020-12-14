@@ -1,10 +1,17 @@
 <template>
-<div>profile</div>
+<nar-bar class="profile-nav">
+  <h4 slot="center">我的</h4>
+</nar-bar>
 </template>
 
 <script>
-export default {
+import NarBar from 'components/common/navbar/NavBar'
 
+export default {
+  name: 'profile',
+  components: {
+    NarBar
+  }
 }
 </script>
 
