@@ -18,5 +18,14 @@
 </script>
 
 <style>
-  @import 'assets/css/base.css'
+  .el-message-box {
+    width: 70% !important;
+  }
+
+  .el-button--primary {
+    background-color: var(--color-tint) !important;
+    border: var(--color-tint) !important;
+  }
+
+  @import 'assets/css/base.css';
 </style>

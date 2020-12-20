@@ -3,10 +3,10 @@ import VueRouter from 'vue-router'
 
 const Home = () => import('../views/home/Home')
 const Category = () => import('../views/category/Category')
-const Shopcart = () => import('../views/shopcart/Shopcart')
+const Shopcart = () => import('../views/shopcart/ShopCart')
 const Profile = () => import('../views/profile/Profile')
 const Detail = () => import('../views/detail/Detail')
-
+const OrderForm = () => import('../views/orderform/Orderform')
 Vue.use(VueRouter)
 
 const routes = [
@@ -47,6 +47,13 @@ const routes = [
     component: Detail,
     meta: {
       title: 'detail',
+    }
+  },
+  {
+    path: '/orderform',
+    component: OrderForm,
+    meta: {
+      title: 'orderform'
     }
   }
 ]

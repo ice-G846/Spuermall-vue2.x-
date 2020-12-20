@@ -26,10 +26,9 @@
   import Scroll from 'components/common/scroll/Scroll'
   import TabControl from 'components/content/tabControl/TabControl'
   import GoodsList from 'components/content/goods/goodsList'
-  import BackTop from 'components/content/backTop/BackTop'
 
   import { debounce } from 'common/utils.js'
-  import { itemListenerMixin } from 'common/mixin'
+  import { itemListenerMixin, backTopMixin } from 'common/mixin'
 
   import {
     getHomeMultidata,
@@ -45,10 +44,9 @@
       NarBar,
       TabControl,
       GoodsList,
-      Scroll,
-      BackTop
+      Scroll
     },
-    mixins: [itemListenerMixin],
+    mixins: [itemListenerMixin, backTopMixin],
     data() {
       return {
         banners: [],
@@ -68,7 +66,6 @@
           },
         },
         currentType: 'pop',
-        isShowBackTop: false,
         tabOffsetTop: 0,
         isTabFixed: false,
         saveY: 0
@@ -83,6 +80,7 @@
       this.getHomeGoods('sell')
     },
     mounted() {
+      this.$bus.$on('itemImageLoad', debounce(this.$refs.scroll.refresh, 50))
     },
     activated() {
       if (this.$refs.scroll.scroll != null) {
@@ -118,9 +116,6 @@
         }
         this.$refs.tabControl.currentIndex = index
         this.$refs.tabControlTop.currentIndex = index
-      },
-      backClick() {
-        this.$refs.scroll.scrollTo(0, 0)
       },
       contentScroll(position) {
         if (position.y < -1000) {
